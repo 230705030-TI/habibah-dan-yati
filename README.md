@@ -1,59 +1,102 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Identitas Kelompok
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+**Nama Kelompok:** Kelompok 2 Orang (Habibah & Yati)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Nama Proyek / Aplikasi:** Sistem Informasi Sembako & Pelacakan Inventaris
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Jumlah Anggota:** 2 orang
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Repositori:** https://github.com/230705030-TI/habibah-dan-yati.git
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Anggota & Role
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Anggota 1**
+- Nama Lengkap: Habibah Rifa Anjani
+- NIM: 230705030
+- Role: Frontend Developer & DevOps Engineer
+- Teknologi: Blade Engine, Tailwind CSS, Git, Laragon
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+**Anggota 2**
+- Nama Lengkap: Yati Fiddiani
+- NIM: 230705226
+- Role: Backend Developer
+- Teknologi: Laravel Framework, MySQL
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Stack Teknologi
 
-```bash
-composer require laravel/boost --dev
+**Frontend:** Blade Engine & Tailwind CSS
 
-php artisan boost:install
-```
+**Backend:** Laravel (Wajib)
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+**Database:** MySQL
 
-## Contributing
+**DevOps / Infrastruktur:** Laragon (Local Environment), Git, GitHub
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Arsitektur Aplikasi
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Sistem ini dibangun menggunakan arsitektur monolitik terintegrasi dengan framework Laravel, di mana Frontend (menggunakan Blade Engine) dan Backend (Laravel Core) berjalan langsung bersama di dalam satu repositori yang sama demi efisiensi koordinasi tim beranggotakan dua orang.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Rencana Fitur
 
-## License
+## Fitur 1 — Autentikasi Pengguna (Login & Register)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-"# habibah-dan-yati" 
+**Role Penanggung Jawab:** Frontend & Backend
+
+**Sumber Data:** Internal System
+
+**Deskripsi & Ekspektasi:**
+Sistem menyediakan form autentikasi agar pengguna bisa masuk atau mendaftar ke aplikasi dengan aman menggunakan sistem enkripsi password bawaan Laravel.
+
+---
+
+## Fitur 2 — Manajemen Data Utama (Dashboard CRUD)
+
+**Role Penanggung Jawab:** Frontend & Backend
+
+**Sumber Data:** Internal System
+
+**Deskripsi & Ekspektasi:**
+Halaman utama dashboard yang menampilkan data inti aplikasi (seperti daftar barang atau log aktivitas). Pengguna dapat menambah, melihat, mengubah, dan menghapus data tersebut dengan antarmuka yang responsif.
+
+---
+
+## Fitur 3 — Integrasi Layanan Pihak Ketiga (Third-Party API)
+
+**Role Penanggung Jawab:** Backend & Frontend
+
+**Sumber Data:** Third-Party API — OpenWeatherMap API
+
+**Deskripsi & Ekspektasi:**
+Aplikasi mengonsumsi data dari API publik luar untuk menampilkan informasi pelengkap (seperti prakiraan cuaca lokal di halaman dashboard) yang diproses backend dan dirender secara real-time oleh frontend.
+
+---
+
+## Fitur 4 — Pencarian dan Filter Real-time
+
+**Role Penanggung Jawab:** Frontend
+
+**Sumber Data:** Internal System
+
+**Deskripsi & Ekspektasi:**
+Fitur pencarian instan pada tabel dashboard yang memungkinkan pengguna mencari data spesifik tanpa perlu memuat ulang keseluruhan halaman web (no-reload).
+
+---
+
+## Fitur 5 — Manajemen Operasional & Environment Setup
+
+**Role Penanggung Jawab:** DevOps
+
+**Sumber Data:** Internal System
+
+**Deskripsi & Ekspektasi:**
+Mengonfigurasi pengaturan file `.env`, menjaga sinkronisasi kode antar-anggota tim di repositori Git tanpa konflik, dan menyiapkan lingkungan server agar aplikasi selalu siap diuji sewaktu-waktu oleh asisten laboratorium.
