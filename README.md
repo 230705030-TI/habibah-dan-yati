@@ -2,7 +2,7 @@
 
 ---
 
-**Nama Kelompok:** Kelompok 2 Orang (Habibah & Yati)
+**Nama Kelompok:** Habibah & Yati
 
 **Nama Proyek / Aplikasi:** Sistem Informasi Sembako & Pelacakan Inventaris
 
