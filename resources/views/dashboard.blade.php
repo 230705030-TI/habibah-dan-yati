@@ -60,31 +60,77 @@
             </div>
         </div>
 
-        <!-- ============================================== -->
-        <!-- 2. HALAMAN STOK BARANG -->
-        <!-- ============================================== -->
-        <div id="halaman-stok" style="display: none;">
-            <div class="card">
-                <h3>Daftar Stok Sembako</h3>
-                <p style="font-size: 16px; font-weight: normal; color: #6b7280; margin-top: 10px;">
-                    Halo Bibah! Di sini nanti tempat untuk menampilkan tabel data stok barang kamu ya.
-                </p>
-            </div>
-        </div>
-
-        <!-- ============================================== -->
-        <!-- 3. HALAMAN LAPORAN TRANSAKSI -->
-        <!-- ============================================== -->
-        <div id="halaman-laporan" style="display: none;">
-            <div class="card">
-                <h3>Laporan Transaksi</h3>
-                <p style="font-size: 16px; font-weight: normal; color: #6b7280; margin-top: 10px;">
-                    Halaman riwayat dan laporan penjualan SembakoTrack.
-                </p>
-            </div>
-        </div>
-
+       <!-- ============================================== -->
+<!-- 2. HALAMAN STOK BARANG -->
+<!-- ============================================== -->
+<div id="halaman-stok" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="margin: 0; color: #1f2937;">Daftar Stok Sembako</h2>
+        <button style="background: #4f46e5; color: white; border: none; padding: 10px 15px; border-radius: 6px; font-weight: bold; cursor: pointer;">+ Tambah Barang</button>
     </div>
+
+    <div class="card" style="padding: 0; overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead style="background: #f9fafb; border-bottom: 2px solid #e5e7eb;">
+                <tr>
+                    <th style="padding: 12px 20px; color: #4b5563;">Nama Barang</th>
+                    <th style="padding: 12px 20px; color: #4b5563;">Kategori</th>
+                    <th style="padding: 12px 20px; color: #4b5563;">Stok</th>
+                    <th style="padding: 12px 20px; color: #4b5563;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                    <td style="padding: 15px 20px; font-weight: 500;">Minyak Goreng Bimoli 2L</td>
+                    <td style="padding: 15px 20px; color: #6b7280;">Minyak Nabati</td>
+                    <td style="padding: 15px 20px;">45 Pcs</td>
+                    <td style="padding: 15px 20px;"><span style="background: #def7ec; color: #03543f; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">Aman</span></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                    <td style="padding: 15px 20px; font-weight: 500;">Beras Premium 10kg</td>
+                    <td style="padding: 15px 20px; color: #6b7280;">Beras</td>
+                    <td style="padding: 15px 20px;">3 Pcs</td>
+                    <td style="padding: 15px 20px;"><span style="background: #fde8e8; color: #9b1c1c; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">Menipis</span></td>
+                </tr>
+                <tr>
+                    <td style="padding: 15px 20px; font-weight: 500;">Gula Pasir Gulaku 1kg</td>
+                    <td style="padding: 15px 20px; color: #6b7280;">Gula</td>
+                    <td style="padding: 15px 20px;">80 Pcs</td>
+                    <td style="padding: 15px 20px;"><span style="background: #def7ec; color: #03543f; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">Aman</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+       <!-- ============================================== -->
+<!-- 3. HALAMAN LAPORAN TRANSAKSI -->
+<!-- ============================================== -->
+<div id="halaman-laporan" style="display: none;">
+    <h2 style="margin-bottom: 20px; color: #1f2937;">Riwayat Transaksi Hari Ini</h2>
+    
+    <div class="card" style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <div style="font-weight: bold; color: #1f2937;">TRX-00248</div>
+            <div style="font-size: 14px; color: #6b7280;">10 menit yang lalu • Kasir Utama</div>
+        </div>
+        <div style="text-align: right;">
+            <div style="font-weight: bold; color: #1f2937;">Rp 125.000</div>
+            <div style="font-size: 12px; color: #046c4e; font-weight: 500;">Sukses</div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <div style="font-weight: bold; color: #1f2937;">TRX-00247</div>
+            <div style="font-size: 14px; color: #6b7280;">45 menit yang lalu • Kasir Utama</div>
+        </div>
+        <div style="text-align: right;">
+            <div style="font-weight: bold; color: #1f2937;">Rp 48.000</div>
+            <div style="font-size: 12px; color: #046c4e; font-weight: 500;">Sukses</div>
+        </div>
+    </div>
+</div>
 
     <!-- Otak pengatur perpindahan halaman -->
     <script>
