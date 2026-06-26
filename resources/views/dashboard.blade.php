@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard SembakoTrack</title>
+    <title>Dashboard Sistem Informasi Sembako & Pelacakan Inventaris</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #f3f4f6; margin: 0; display: flex; }
         .sidebar { width: 250px; background: #1f2937; color: white; height: 100vh; padding: 20px; box-sizing: border-box; }
@@ -23,9 +23,9 @@
 </head>
 <body>
 
-    <!-- Sidebar Menu SembakoTrack -->
+    <!-- Sidebar Menu Sistem Informasi Sembako & Pelacakan Inventaris -->
     <div class="sidebar">
-        <h2>SembakoTrack</h2>
+        <h2>Sistem Informasi Sembako & Pelacakan Inventaris</h2>
         <button onclick="bukaHalaman('dashboard')" style="display: block; width: 100%; background: none; border: none; text-align: left; color: #d1d5db; padding: 12px; font-size: 16px; font-family: inherit; border-radius: 6px; margin-bottom: 10px; cursor: pointer;">🏠 Dashboard</button>
         <button onclick="bukaHalaman('stok')" style="display: block; width: 100%; background: none; border: none; text-align: left; color: #d1d5db; padding: 12px; font-size: 16px; font-family: inherit; border-radius: 6px; margin-bottom: 10px; cursor: pointer;">📦 Stok Barang</button>
         <button onclick="bukaHalaman('laporan')" style="display: block; width: 100%; background: none; border: none; text-align: left; color: #d1d5db; padding: 12px; font-size: 16px; font-family: inherit; border-radius: 6px; margin-bottom: 10px; cursor: pointer;">📋 Laporan Transaksi</button>
@@ -40,7 +40,7 @@
             <div><strong>Operator:</strong> Habibah (230705030)</div>
         </div>
 
-        <!-- ============================================== -->
+<!-- ============================================== -->
         <!-- 1. HALAMAN DASHBOARD -->
         <!-- ============================================== -->
         <div id="halaman-dashboard">
@@ -49,14 +49,48 @@
                     <h3>Total Jenis Sembako</h3>
                     <p>120 Komoditas</p>
                 </div>
-                <div class="card">
-                    <h3>Stok Menipis</h3>
-                    <p>5 Barang</p>
+                
+                <!-- KARTU STOK MENIPIS: Kita kasih efek kursor dan fungsi klik -->
+                <div class="card" onclick="bukaHalaman('stok')" style="cursor: pointer; border: 1px solid #fca5a5; background: #fffdfd; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <h3 style="color: #dc2626;">⚠️ Stok Menipis (Klik Detail)</h3>
+                    <p style="color: #dc2626;">5 Barang</p>
                 </div>
+                
                 <div class="card">
                     <h3>Transaksi Hari Ini</h3>
                     <p>24 Selesai</p>
                 </div>
+            </div>
+
+            <!-- TAMBAHAN BIAR DASHBOARD NGAK POLOS: Tabel Peringatan di Bawah Kartu -->
+            <div class="card" style="margin-top: 30px; border-left: 5px solid #dc2626;">
+                <h3 style="color: #1f2937; margin-bottom: 15px;">📋 Daftar Barang yang Harus Segera Direstok</h3>
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+                    <thead style="background: #f9fafb; border-bottom: 1px solid #e5e7eb;">
+                        <tr>
+                            <th style="padding: 10px; color: #4b5563;">Nama Sembako</th>
+                            <th style="padding: 10px; color: #4b5563;">Sisa Stok</th>
+                            <th style="padding: 10px; color: #4b5563;">Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #f3f4f6;">
+                            <td style="padding: 12px 10px; font-weight: bold;">Beras Premium 10kg</td>
+                            <td style="padding: 12px 10px; color: #dc2626; font-weight: bold;">3 Pcs</td>
+                            <td style="padding: 12px 10px;"><span style="background: #fee2e2; color: #9b1c1c; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Hubungi Supplier</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f3f4f6;">
+                            <td style="padding: 12px 10px; font-weight: bold;">Minyak Kita 1L</td>
+                            <td style="padding: 12px 10px; color: #dc2626; font-weight: bold;">2 Pcs</td>
+                            <td style="padding: 12px 10px;"><span style="background: #fee2e2; color: #9b1c1c; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Hubungi Supplier</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f3f4f6;">
+                            <td style="padding: 12px 10px; font-weight: bold;">Telur Ayam (Amanah)</td>
+                            <td style="padding: 12px 10px; color: #b45309; font-weight: bold;">5 Butir</td>
+                            <td style="padding: 12px 10px;"><span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Beli Eceran</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
