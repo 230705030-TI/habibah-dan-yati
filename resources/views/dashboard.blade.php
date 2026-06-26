@@ -38,7 +38,7 @@
             <!-- Judul ini nanti akan berubah otomatis lewat JavaScript -->
             <h1 id="judul-utama" class="judul-halaman">Selamat Datang di Dashboard</h1>
             <!-- Nama dan NIM kamu berdua sudah lengkap di sini -->
-            <div><strong>Operator:</strong> Habibah Rifa Anjani (230705030) & Yati Fiddiani (2307050226)</div>
+            <div><strong>Operator:</strong> </div>
         </div>
 <!-- ============================================== -->
         <!-- 1. HALAMAN DASHBOARD -->
