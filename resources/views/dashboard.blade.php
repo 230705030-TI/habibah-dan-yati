@@ -32,14 +32,14 @@
         <a href="/" style="display: block; color: #d1d5db; padding: 12px; text-decoration: none; border-radius: 6px;">🚪 Keluar</a>
     </div>
 
-    <!-- Konten Utama -->
+   <!-- Konten Utama -->
     <div class="main-content">
         <div class="header">
             <!-- Judul ini nanti akan berubah otomatis lewat JavaScript -->
             <h1 id="judul-utama" class="judul-halaman">Selamat Datang di Dashboard</h1>
-            <div><strong>Operator:</strong> Habibah (230705030)</div>
+            <!-- Nama dan NIM kamu berdua sudah lengkap di sini -->
+            <div><strong>Operator:</strong> Habibah Rifa Anjani (230705030) & Yati Fiddiani (2307050226)</div>
         </div>
-
 <!-- ============================================== -->
         <!-- 1. HALAMAN DASHBOARD -->
         <!-- ============================================== -->
