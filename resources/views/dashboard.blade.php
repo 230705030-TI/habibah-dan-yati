@@ -23,10 +23,7 @@
         <a onclick="bukaHalaman('stok')">📦 Stok Barang</a>
         <a onclick="bukaHalaman('laporan')">📊 Laporan Penjualan</a>
         <hr style="border-color: #374151;">
-        <a href="/" style="display: block; color: #dc2626; padding: 12px; text-decoration: none; border-radius: 6px; margin-top: 10px;">🚪 Keluar</a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
+      <a href="/" style="display: block; color: #dc2626; padding: 12px; text-decoration: none; border-radius: 6px; margin-top: 10px;">🚪 Keluar</a>
     </div>
 
     <div class="main-content">
