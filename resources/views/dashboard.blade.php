@@ -99,7 +99,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($items ?? [] as $item)
+                                    @forelse(($items ?? []) as $item)
+                                     @php $item = (object) $item; @endphp
                                     <tr>
                                         <td class="px-4">{{ $item->id }}</td>
                                         <td><strong>{{ $item->nama_barang }}</strong></td>
@@ -112,7 +113,7 @@
                                             @endif
                                         </td>
                                         <td class="text-center">
-                                            <form action="{{ route('destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                            <form action="/dashboard/destroy/{{ $item['id'] ?? $item->id ?? '' }}" method="POST"></form>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
@@ -151,7 +152,7 @@
 
     <div class="modal fade" id="modalTambah" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="{{ route('store') }}" method="POST" class="modal-content">
+            <<form action="/dashboard/store" method="POST" class="modal-content">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title">Tambah Barang Sembako</h5>
