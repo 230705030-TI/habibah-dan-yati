@@ -99,7 +99,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($items as $item)
+                                    @forelse($items ?? [] as $item)
                                     <tr>
                                         <td class="px-4">{{ $item->id }}</td>
                                         <td><strong>{{ $item->nama_barang }}</strong></td>
