@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Contracts\SembakoServiceInterface;
+use App\Services\SembakoService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Di sinilah KUNCI atau IKATAN (Binding) itu dibuat!
+        $this->app->bind(SembakoServiceInterface::class, SembakoService::class);
     }
 
     /**
