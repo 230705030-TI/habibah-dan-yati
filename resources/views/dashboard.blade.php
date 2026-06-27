@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <form action="{{ route('dashboard') }}" method="GET" class="mb-4 shadow-sm">
+                <form action="/dashboard" method="GET" class="mb-4 shadow-sm">
                     <div class="input-group input-group-lg">
                         <input type="text" name="keyword" class="form-control border-0" placeholder="🔍 Cari nama barang sembako di sini..." value="{{ request('keyword') }}">
                         <button class="btn btn-primary px-4" type="submit">Cari Barang</button>
