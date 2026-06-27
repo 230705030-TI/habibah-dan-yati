@@ -32,23 +32,33 @@ class DashboardController extends Controller
         $this->searchContract = $searchContract;
     }
 
-    /**
+   /**
      * Halaman Utama Dashboard 
      * Menggabungkan Fitur 2 (CRUD/Tampil Data) & Fitur 3 (Weather API) & Fitur 4 (Search)
      */
     public function index(Request $request)
     {
         // 1. Cek apakah ada pencarian real-time (Fitur 4)
-        if ($request->has('keyword')) {
+        if ($request->has('keyword') && $request->keyword != '') {
             $items = $this->searchContract->search($request->keyword);
         } else {
             // Jika tidak ada pencarian, tampilkan semua data inti (Fitur 2)
             $items = $this->crudContract->getAllData();
         }
 
+        // 🛡️ JARING PENGAMAN: Jika data $items kosong atau bernilai null dari Service,
+        // kita paksa jadikan array kosong agar halaman blade tidak error merah 'Undefined variable'
+        if (!$items) {
+            $items = [];
+        }
+
         // 2. Ambil data cuaca lokal untuk pelengkap dashboard (Fitur 3)
-        // Contoh default lokasinya di Banda Aceh
-        $weatherData = $this->weatherContract->getWeatherByCity('Banda Aceh');
+        // Kita beri try-catch atau default array kosong juga agar jika API Cuaca mati, web tidak ikut error
+        try {
+            $weatherData = $this->weatherContract->getWeatherByCity('Banda Aceh') ?? [];
+        } catch (\Exception $e) {
+            $weatherData = [];
+        }
 
         // 3. Kirim semua data ke view 'dashboard.blade.php'
         return view('dashboard', compact('items', 'weatherData'));
