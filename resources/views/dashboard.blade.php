@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Sistem Informasi Sembako & Pelacakan Inventaris</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #f3f4f6; margin: 0; display: flex; }
         .sidebar { width: 250px; background: #1f2937; color: white; height: 100vh; padding: 20px; box-sizing: border-box; }
@@ -12,175 +13,186 @@
         .sidebar a:hover { background: #374151; color: white; }
         .main-content { flex: 1; padding: 40px; box-sizing: border-box; }
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e5e7eb; padding-bottom: 20px; margin-bottom: 30px; }
-        .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .card h3 { margin: 0 0 10px 0; color: #4b5563; }
-        .card p { font-size: 24px; font-weight: bold; margin: 0; color: #1f2937; }
-        
-        /* Tambahan style untuk judul halaman dinamis */
-        .judul-halaman { margin: 0; color: #1f2937; }
     </style>
 </head>
 <body>
 
-    <!-- Sidebar Menu Sistem Informasi Sembako & Pelacakan Inventaris -->
     <div class="sidebar">
-        <h2>Sistem Informasi Sembako & Pelacakan Inventaris</h2>
-        <button onclick="bukaHalaman('dashboard')" style="display: block; width: 100%; background: none; border: none; text-align: left; color: #d1d5db; padding: 12px; font-size: 16px; font-family: inherit; border-radius: 6px; margin-bottom: 10px; cursor: pointer;">🏠 Dashboard</button>
-        <button onclick="bukaHalaman('stok')" style="display: block; width: 100%; background: none; border: none; text-align: left; color: #d1d5db; padding: 12px; font-size: 16px; font-family: inherit; border-radius: 6px; margin-bottom: 10px; cursor: pointer;">📦 Stok Barang</button>
-        <button onclick="bukaHalaman('laporan')" style="display: block; width: 100%; background: none; border: none; text-align: left; color: #d1d5db; padding: 12px; font-size: 16px; font-family: inherit; border-radius: 6px; margin-bottom: 10px; cursor: pointer;">📋 Laporan Transaksi</button>
-        <a href="/" style="display: block; color: #d1d5db; padding: 12px; text-decoration: none; border-radius: 6px;">🚪 Keluar</a>
+        <h2>Sembako-In</h2>
+        <a onclick="bukaHalaman('dashboard')">🏠 Dashboard</a>
+        <a onclick="bukaHalaman('stok')">📦 Stok Barang</a>
+        <a onclick="bukaHalaman('laporan')">📊 Laporan Penjualan</a>
+        <hr style="border-color: #374151;">
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-danger">🚪 Keluar</a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
     </div>
 
-   <!-- Konten Utama -->
     <div class="main-content">
         <div class="header">
-            <!-- Judul ini nanti akan berubah otomatis lewat JavaScript -->
-            <h1 id="judul-utama" class="judul-halaman">Selamat Datang di Dashboard</h1>
-            <!-- Nama dan NIM kamu berdua sudah lengkap di sini -->
-            <div><strong>Operator:</strong> </div>
+            <h1 id="judul-utama" class="h2 m-0 font-weight-bold text-gray-800">Selamat Datang di Dashboard</h1>
+            <div class="text-muted">Halo, Pengguna!</div>
         </div>
-<!-- ============================================== -->
-        <!-- 1. HALAMAN DASHBOARD -->
-        <!-- ============================================== -->
-        <div id="halaman-dashboard">
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Total Jenis Sembako</h3>
-                    <p>120 Komoditas</p>
-                </div>
+
+        <main>
+            <div class="container-fluid px-0">
                 
-                <!-- KARTU STOK MENIPIS: Kita kasih efek kursor dan fungsi klik -->
-                <div class="card" onclick="bukaHalaman('stok')" style="cursor: pointer; border: 1px solid #fca5a5; background: #fffdfd; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <h3 style="color: #dc2626;">⚠️ Stok Menipis (Klik Detail)</h3>
-                    <p style="color: #dc2626;">5 Barang</p>
+                <div class="card bg-info text-white mb-4 shadow border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h4 class="mb-1">☀️ Prakiraan Cuaca Lokal</h4>
+                                <p class="mb-0 text-white-50">Data diperbarui secara real-time dari OpenWeatherMap</p>
+                            </div>
+                            <div class="text-end">
+                                <h3 class="mb-0"><strong>{{ $weatherData['name'] ?? 'Banda Aceh' }}</strong></h3>
+                                <h4 class="mb-0 mt-1">{{ $weatherData['main']['temp'] ?? '28' }}°C</h4>
+                                <span class="badge bg-white text-info mt-1">{{ $weatherData['weather'][0]['description'] ?? 'Cerah Berawan' }}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="card">
-                    <h3>Transaksi Hari Ini</h3>
-                    <p>24 Selesai</p>
+
+                <form action="{{ route('dashboard') }}" method="GET" class="mb-4 shadow-sm">
+                    <div class="input-group input-group-lg">
+                        <input type="text" name="keyword" class="form-control border-0" placeholder="🔍 Cari nama barang sembako di sini..." value="{{ request('keyword') }}">
+                        <button class="btn btn-primary px-4" type="submit">Cari Barang</button>
+                    </div>
+                </form>
+
+                <div id="halaman-dashboard">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card p-4 shadow-sm border-0 mb-4" style="background: white; border-left: 5px solid #4f46e5 !important;">
+                                <div class="text-muted small uppercase font-weight-bold">Total Jenis Barang</div>
+                                <div class="h2 font-weight-bold text-gray-800 mt-2">120 Item</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card p-4 shadow-sm border-0 mb-4" style="background: white; border-left: 5px solid #16a34a !important;">
+                                <div class="text-muted small uppercase font-weight-bold">Barang Masuk (Hari Ini)</div>
+                                <div class="h2 font-weight-bold text-gray-800 mt-2">+45 Pack</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card p-4 shadow-sm border-0 mb-4" style="background: white; border-left: 5px solid #dc2626 !important;">
+                                <div class="text-muted small uppercase font-weight-bold">Stok Menipis</div>
+                                <div class="h2 font-weight-bold text-gray-800 mt-2 text-danger">3 Barang</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <div id="halaman-stok" class="card shadow-sm border-0 mb-4" style="background: white;">
+                    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-0">
+                        <h5 class="m-0 font-weight-bold text-primary">Daftar Inventaris Sembako</h5>
+                        <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modalTambah">+ Tambah Barang Baru</button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover m-0 vertical-align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="px-4">ID</th>
+                                        <th>Nama Barang</th>
+                                        <th>Stok</th>
+                                        <th>Status</th>
+                                        <th class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($items as $item)
+                                    <tr>
+                                        <td class="px-4">{{ $item->id }}</td>
+                                        <td><strong>{{ $item->nama_barang }}</strong></td>
+                                        <td>{{ $item->stok }} unit</td>
+                                        <td>
+                                            @if($item->stok > 10)
+                                                <span class="badge bg-success-subtle text-success">Aman</span>
+                                            @else
+                                                <span class="badge bg-danger-subtle text-danger">Kritis</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <form action="{{ route('destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center py-4 text-muted">Belum ada data barang atau pencarian tidak ditemukan.</td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="halaman-laporan" style="display: none;">
+                    <div class="card p-4 shadow-sm border-0 mb-3" style="background: white;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div style="font-weight: 600; color: #111827;">Minyak Goreng Kita 2L</div>
+                                <div style="font-size: 14px; color: #6b7280;">10 Menit yang lalu</div>
+                            </div>
+                            <div class="text-end">
+                                <div style="font-weight: bold; color: #1f2937;">Rp 48.000</div>
+                                <div style="font-size: 12px; color: #046c4e; font-weight: 500;">Sukses</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-
-            <!-- TAMBAHAN BIAR DASHBOARD NGAK POLOS: Tabel Peringatan di Bawah Kartu -->
-            <div class="card" style="margin-top: 30px; border-left: 5px solid #dc2626;">
-                <h3 style="color: #1f2937; margin-bottom: 15px;">📋 Daftar Barang yang Harus Segera Direstok</h3>
-                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
-                    <thead style="background: #f9fafb; border-bottom: 1px solid #e5e7eb;">
-                        <tr>
-                            <th style="padding: 10px; color: #4b5563;">Nama Sembako</th>
-                            <th style="padding: 10px; color: #4b5563;">Sisa Stok</th>
-                            <th style="padding: 10px; color: #4b5563;">Tindakan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="border-bottom: 1px solid #f3f4f6;">
-                            <td style="padding: 12px 10px; font-weight: bold;">Beras Premium 10kg</td>
-                            <td style="padding: 12px 10px; color: #dc2626; font-weight: bold;">3 Pcs</td>
-                            <td style="padding: 12px 10px;"><span style="background: #fee2e2; color: #9b1c1c; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Hubungi Supplier</span></td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #f3f4f6;">
-                            <td style="padding: 12px 10px; font-weight: bold;">Minyak Kita 1L</td>
-                            <td style="padding: 12px 10px; color: #dc2626; font-weight: bold;">2 Pcs</td>
-                            <td style="padding: 12px 10px;"><span style="background: #fee2e2; color: #9b1c1c; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Hubungi Supplier</span></td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #f3f4f6;">
-                            <td style="padding: 12px 10px; font-weight: bold;">Telur Ayam (Amanah)</td>
-                            <td style="padding: 12px 10px; color: #b45309; font-weight: bold;">5 Butir</td>
-                            <td style="padding: 12px 10px;"><span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Beli Eceran</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-       <!-- ============================================== -->
-<!-- 2. HALAMAN STOK BARANG -->
-<!-- ============================================== -->
-<div id="halaman-stok" style="display: none;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h2 style="margin: 0; color: #1f2937;">Daftar Stok Sembako</h2>
-        <button style="background: #4f46e5; color: white; border: none; padding: 10px 15px; border-radius: 6px; font-weight: bold; cursor: pointer;">+ Tambah Barang</button>
+        </main>
     </div>
 
-    <div class="card" style="padding: 0; overflow: hidden;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left;">
-            <thead style="background: #f9fafb; border-bottom: 2px solid #e5e7eb;">
-                <tr>
-                    <th style="padding: 12px 20px; color: #4b5563;">Nama Barang</th>
-                    <th style="padding: 12px 20px; color: #4b5563;">Kategori</th>
-                    <th style="padding: 12px 20px; color: #4b5563;">Stok</th>
-                    <th style="padding: 12px 20px; color: #4b5563;">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr style="border-bottom: 1px solid #e5e7eb;">
-                    <td style="padding: 15px 20px; font-weight: 500;">Minyak Goreng Bimoli 2L</td>
-                    <td style="padding: 15px 20px; color: #6b7280;">Minyak Nabati</td>
-                    <td style="padding: 15px 20px;">45 Pcs</td>
-                    <td style="padding: 15px 20px;"><span style="background: #def7ec; color: #03543f; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">Aman</span></td>
-                </tr>
-                <tr style="border-bottom: 1px solid #e5e7eb;">
-                    <td style="padding: 15px 20px; font-weight: 500;">Beras Premium 10kg</td>
-                    <td style="padding: 15px 20px; color: #6b7280;">Beras</td>
-                    <td style="padding: 15px 20px;">3 Pcs</td>
-                    <td style="padding: 15px 20px;"><span style="background: #fde8e8; color: #9b1c1c; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">Menipis</span></td>
-                </tr>
-                <tr>
-                    <td style="padding: 15px 20px; font-weight: 500;">Gula Pasir Gulaku 1kg</td>
-                    <td style="padding: 15px 20px; color: #6b7280;">Gula</td>
-                    <td style="padding: 15px 20px;">80 Pcs</td>
-                    <td style="padding: 15px 20px;"><span style="background: #def7ec; color: #03543f; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">Aman</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-       <!-- ============================================== -->
-<!-- 3. HALAMAN LAPORAN TRANSAKSI -->
-<!-- ============================================== -->
-<div id="halaman-laporan" style="display: none;">
-    <h2 style="margin-bottom: 20px; color: #1f2937;">Riwayat Transaksi Hari Ini</h2>
-    
-    <div class="card" style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            <div style="font-weight: bold; color: #1f2937;">TRX-00248</div>
-            <div style="font-size: 14px; color: #6b7280;">10 menit yang lalu • Kasir Utama</div>
-        </div>
-        <div style="text-align: right;">
-            <div style="font-weight: bold; color: #1f2937;">Rp 125.000</div>
-            <div style="font-size: 12px; color: #046c4e; font-weight: 500;">Sukses</div>
+    <div class="modal fade" id="modalTambah" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ route('store') }}" method="POST" class="modal-content">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Barang Sembako</h5>
+                    <button type="button" class="btn-close" data-bs-shadow="none" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nama Barang</label>
+                        <input type="text" name="nama_barang" class="form-control" placeholder="Contoh: Beras Ramos 10kg" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Jumlah Stok</label>
+                        <input type="number" name="stok" class="form-control" placeholder="Contoh: 50" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success">Simpan Data</button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <div class="card" style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            <div style="font-weight: bold; color: #1f2937;">TRX-00247</div>
-            <div style="font-size: 14px; color: #6b7280;">45 menit yang lalu • Kasir Utama</div>
-        </div>
-        <div style="text-align: right;">
-            <div style="font-weight: bold; color: #1f2937;">Rp 48.000</div>
-            <div style="font-size: 12px; color: #046c4e; font-weight: 500;">Sukses</div>
-        </div>
-    </div>
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Otak pengatur perpindahan halaman -->
     <script>
         function bukaHalaman(namaHalaman) {
-            // 1. Ambil semua elemen halaman
             const dashboard = document.getElementById('halaman-dashboard');
             const stok = document.getElementById('halaman-stok');
             const laporan = document.getElementById('halaman-laporan');
             const judulUtama = document.getElementById('judul-utama');
 
-            // 2. Sembunyikan semua halaman dulu
+            // Sembunyikan semuanya dahulu
             dashboard.style.display = 'none';
             stok.style.display = 'none';
             laporan.style.display = 'none';
 
-            // 3. Tampilkan halaman yang dipilih + ganti judul atasnya
+            // Tampilkan halaman yang di-klik user
             if (namaHalaman === 'dashboard') {
                 dashboard.style.display = 'block';
                 judulUtama.innerText = 'Selamat Datang di Dashboard';
@@ -189,10 +201,9 @@
                 judulUtama.innerText = 'Manajemen Stok Barang';
             } else if (namaHalaman === 'laporan') {
                 laporan.style.display = 'block';
-                judulUtama.innerText = 'Laporan Transaksi SembakoTrack';
+                judulUtama.innerText = 'Laporan Riwayat Penjualan';
             }
         }
     </script>
-
 </body>
 </html>
