@@ -19,10 +19,12 @@
 </head>
 <body>
 
+<!-- Baris 26: Ini mulainya -->
 <div class="login-card">
     <h2>Selamat Datang</h2>
     <p>Silakan login untuk masuk ke sistem</p>
-    <form>
+    
+    <form action="/dashboard" method="GET"> <!-- GANTI BARIS INI -->
         <div class="form-group">
             <label>NIM / Username</label>
             <input type="text" placeholder="Masukkan NIM kamu...">
@@ -31,9 +33,6 @@
             <label>Password</label>
             <input type="password" placeholder="Masukkan password...">
         </div>
-        <button type="button" class="btn-login">Masuk Aplikasi</button>
-    </form>
+        <button type="submit" class="btn-login">Masuk Aplikasi</button> <!-- GANTI TYPE="SUBMIT" DI SINI -->
+    </form> <!-- Baris 37: Ini akhirnya -->
 </div>
-
-</body>
-</html>
