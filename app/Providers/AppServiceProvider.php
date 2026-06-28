@@ -7,7 +7,7 @@ use App\Contracts\SembakoServiceInterface;
 use App\Services\SembakoService;
 
 // =========================================================================
-// MOCK CLASS DENGAN FORMAT STRUKTUR INTERFACE ASLI + MURNI ARRAY PHP
+// MOCK CLASSES - 100% STRUKTUR INTERFACE ASLI + MURNI ARRAY PHP
 // =========================================================================
 
 class MockAuth implements \App\Contracts\AuthInterface {
@@ -18,10 +18,20 @@ class MockAuth implements \App\Contracts\AuthInterface {
 
 class MockCrud implements \App\Contracts\DashboardCrudInterface {
     public function getAllData(): array { 
-        // Mengembalikan murni array PHP agar cocok dengan sintaks $item['id'] di blade
+        // Mengembalikan murni array multidimensi standar PHP
         return session('fake_sembako_db', [
-            ['id' => 1, 'nama_barang' => 'Beras Premium 5kg', 'stok' => 45, 'status' => 'Tersedia'],
-            ['id' => 2, 'nama_barang' => 'Minyak Goreng 2L', 'stok' => 3, 'status' => 'Stok Menipis'],
+            [
+                'id' => 1, 
+                'nama_barang' => 'Beras Premium 5kg', 
+                'stok' => 45, 
+                'status' => 'Tersedia'
+            ],
+            [
+                'id' => 2, 
+                'nama_barang' => 'Minyak Goreng 2L', 
+                'stok' => 3, 
+                'status' => 'Stok Menipis'
+            ],
         ]); 
     }
 
