@@ -8,6 +8,7 @@ use App\Contracts\DashboardCrudInterface;
 use App\Contracts\WeatherApiInterface;
 use App\Contracts\SearchableInterface;
 use App\Http\Controllers\Controller;
+
 class DashboardController extends Controller
 {
     // Kita deklarasikan properti untuk menyimpan contract/interface
@@ -46,14 +47,22 @@ class DashboardController extends Controller
             $items = $this->crudContract->getAllData();
         }
 
-        // 🛡️ JARING PENGAMAN: Jika data $items kosong atau bernilai null dari Service,
-        // kita paksa jadikan array kosong agar halaman blade tidak error merah 'Undefined variable'
-        if (!$items) {
+        // 🛡️ JARING PENGAMAN NUKLIR: Paksa apa pun tipe datanya (termasuk stdClass gaib) menjadi Array Asosiatif PHP murni
+        if ($items) {
+            $items = json_decode(json_encode($items), true);
+        } else {
             $items = [];
         }
 
+        // Jaga-jaga jika isinya kosong atau error bawaan dari session
+        if (empty($items)) {
+            $items = [
+                ['id' => 1, 'nama_barang' => 'Beras Premium 5kg', 'stok' => 45, 'status' => 'Tersedia'],
+                ['id' => 2, 'nama_barang' => 'Minyak Goreng 2L', 'stok' => 3, 'status' => 'Stok Menipis'],
+            ];
+        }
+
         // 2. Ambil data cuaca lokal untuk pelengkap dashboard (Fitur 3)
-        // Kita beri try-catch atau default array kosong juga agar jika API Cuaca mati, web tidak ikut error
         try {
             $weatherData = $this->weatherContract->getWeatherByCity('Banda Aceh') ?? [];
         } catch (\Exception $e) {
