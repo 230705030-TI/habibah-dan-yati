@@ -30,13 +30,14 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
-        // BYPASS MUTLAK: Buat data array murni di sini agar 100% anti-error stdClass!
+        // BYPASS PURBA: Data dipaksa murni array asosiatif (100% anti-stdClass)
         $items = [
             ['id' => 1, 'nama_barang' => 'Beras Premium 5kg', 'stok' => 45, 'status' => 'Tersedia'],
             ['id' => 2, 'nama_barang' => 'Minyak Goreng 2L', 'stok' => 3, 'status' => 'Stok Menipis'],
             ['id' => 3, 'nama_barang' => 'Gula Pasir 1kg', 'stok' => 12, 'status' => 'Tersedia'],
         ];
 
+        // Fitur pencarian lokal darurat
         if ($request->has('keyword') && $request->keyword != '') {
             $keyword = $request->keyword;
             $items = array_values(array_filter($items, function($item) use ($keyword) {
