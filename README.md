@@ -10,6 +10,11 @@
 
 **Repositori:** https://github.com/230705030-TI/habibah-dan-yati.git
 
+## 🌐 Link Aplikasi Deployment (Railway)
+👉 **[Buka Aplikasi Sembako-In](http://habibah-dan-yati-production.up.railway.app/dashboard)**
+
+*Catatan: Sesiapa sahaja boleh mengakses dashboard. Jika diminta log masuk, boleh masukkan sebarang username/password secara rawak.*
+
 ---
 
 ## Anggota & Role
