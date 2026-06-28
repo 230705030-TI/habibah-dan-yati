@@ -7,7 +7,7 @@ use App\Contracts\SembakoServiceInterface;
 use App\Services\SembakoService;
 
 // =========================================================================
-// CLASS TIRUAN (MOCK) YANG DISEDIAKAN UNTUK CONSTRUCTOR DASHBOARDCONTROLLER
+// MOCK CLASS YANG MENGIKUTI ATURAN INTERFACE ASLI + SIMULASI SESSION DATA
 // =========================================================================
 
 class MockAuth implements \App\Contracts\AuthInterface {
@@ -17,9 +17,7 @@ class MockAuth implements \App\Contracts\AuthInterface {
 }
 
 class MockCrud implements \App\Contracts\DashboardCrudInterface {
-    
     public function getAllData(): array { 
-        // Mengambil data barang dari session Laravel, jika masih kosong return array bawaan ini
         return session('fake_sembako_db', [
             ['id' => 1, 'nama_barang' => 'Beras Premium 5kg', 'stok' => 45, 'status' => 'Tersedia'],
             ['id' => 2, 'nama_barang' => 'Minyak Goreng 2L', 'stok' => 3, 'status' => 'Stok Menipis'],
@@ -27,11 +25,9 @@ class MockCrud implements \App\Contracts\DashboardCrudInterface {
     }
 
     public function createData(array $data): bool { 
-        // Ambil data lama
         $currentData = $this->getAllData();
-        
-        // Buat format barang baru dari input form kamu
         $newId = count($currentData) > 0 ? max(array_column($currentData, 'id')) + 1 : 1;
+        
         $newItems = [
             'id' => $newId,
             'nama_barang' => $data['nama_barang'] ?? ($data['nama'] ?? 'Barang Baru'),
@@ -39,10 +35,8 @@ class MockCrud implements \App\Contracts\DashboardCrudInterface {
             'status' => ($data['stok'] ?? 0) <= 5 ? 'Stok Menipis' : 'Tersedia'
         ];
 
-        // Gabungkan dan simpan kembali ke session
         $currentData[] = $newItems;
         session(['fake_sembako_db' => $currentData]);
-
         return true; 
     }
 
@@ -60,7 +54,7 @@ class MockSearch implements \App\Contracts\SearchableInterface {
 }
 
 // =========================================================================
-// SERVICE PROVIDER UTAMA
+// REGISTER BINDING KE SERVICE CONTAINER
 // =========================================================================
 
 class AppServiceProvider extends ServiceProvider
@@ -70,10 +64,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // 1. Binding bawaan kamu yang asli
+        // Binding bawaan yang asli
         $this->app->bind(SembakoServiceInterface::class, SembakoService::class);
 
-        // 2. Binding Interface ke Class Mock Resmi yang parameternya sudah 100% cocok
+        // Pasang kembali binding resmi ke constructor agar tidak memicu error "must not be accessed before initialization"
         $this->app->bind(\App\Contracts\AuthInterface::class, MockAuth::class);
         $this->app->bind(\App\Contracts\DashboardCrudInterface::class, MockCrud::class);
         $this->app->bind(\App\Contracts\WeatherApiInterface::class, MockWeather::class);
