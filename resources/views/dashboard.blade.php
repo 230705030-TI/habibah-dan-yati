@@ -1,17 +1,3 @@
-@foreach (($items ?? []) as $item)
-    @php $item = (object) $item; @endphp ```
-
-Baris `@php $item = (object) $item; @endphp` ini mengubah paksa `$item` yang tadinya sudah berupa array murni menjadi **Object (`stdClass`)**. Nah, tepat setelah baris itu diubah jadi object, di bawahnya kamu memanggil `$item['id']` atau fungsi array lainnya, sehingga PHP langsung meledak memunculkan eror tersebut!
-
-Sekalian kita rapikan beberapa **syntax typo** bawaan HTML-mu (seperti tag pembuka double `<<form` pada modal tambah barang).
-
----
-
-### 🛠️ Solusi Instan: Ganti dengan Kode Blade Bersih & Anti-Eror Ini
-
-Buka file **`resources/views/dashboard.blade.php`** kamu (baik di VS Code yang benar atau edit langsung lewat web GitHub), hapus semua isinya, lalu timpa total dengan kode bersih di bawah ini:
-
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
