@@ -10,15 +10,15 @@
 
 **Repositori:** https://github.com/230705030-TI/habibah-dan-yati.git
 
-## 🌐 Link Aplikasi Deployment (Railway)
-👉 **[Buka Aplikasi Sembako-In](http://habibah-dan-yati-production.up.railway.app/dashboard)**
+---
 
-Kredensial & Autentikasi Sistem:
+## 🌐 Tautan Aplikasi & Hak Akses Sistem
 
-Metode Akses: Sistem ini telah dikonfigurasikan menggunakan mekanisme bypass authentication untuk keperluan demonstrasi, pengujian (testing), dan penilaian publik.
+**Tautan Aplikasi (Deployment Link):** 👉 **[Sistem Informasi Sembako-In (Railway Production)](http://habibah-dan-yati-production.up.railway.app/dashboard)**
 
-Petunjuk Log Masuk: Tim penilai/dosen dapat memasukkan kombinasi nama pengguna (username) dan kata sandi (password) secara bebas (bersifat acak/sembarang) pada halaman log masuk. Sistem akan secara otomatis memberikan hak akses penuh ke dalam Dashboard Utama setelah tombol masuk ditekan.
-
+**Kredensial & Autentikasi Sistem:**
+* **Metode Akses:** Aplikasi dikonfigurasikan menggunakan sistem *Direct Access* (Akses Langsung) untuk keperluan demonstrasi dan penilaian efisiensi.
+* **Petunjuk Akses:** Tim penilai/dosen tidak perlu melakukan proses registrasi atau pengisian log masuk (*login*). Tautan di atas akan langsung mengarahkan Anda ke halaman *Dashboard Utama* beserta seluruh fitur manajemen stok barang.
 ---
 
 ## Anggota & Role
