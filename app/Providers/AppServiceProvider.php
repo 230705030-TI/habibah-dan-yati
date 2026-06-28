@@ -6,6 +6,10 @@ use Illuminate\Support\ServiceProvider;
 use App\Contracts\SembakoServiceInterface;
 use App\Services\SembakoService;
 
+// =========================================================================
+// MOCK CLASS DENGAN PAKSAAN RE-CAST ARRAY MURNI SEBELUM DI-RETURN
+// =========================================================================
+
 class MockAuth implements \App\Contracts\AuthInterface {
     public function login(string $email, string $password): bool { return true; }
     public function logout(): void {}
@@ -14,11 +18,21 @@ class MockAuth implements \App\Contracts\AuthInterface {
 
 class MockCrud implements \App\Contracts\DashboardCrudInterface {
     public function getAllData(): array { 
-        $data = session('final_sembako_pure_array_db', [
+        // 1. Ambil data mentah default (Pasti Array)
+        $defaultData = [
             ['id' => 1, 'nama_barang' => 'Beras Premium 5kg', 'stok' => 45, 'status' => 'Tersedia'],
             ['id' => 2, 'nama_barang' => 'Minyak Goreng 2L', 'stok' => 3, 'status' => 'Stok Menipis'],
-        ]);
-        return json_decode(json_encode($data), true);
+        ];
+
+        // 2. Gunakan KEY BARU SEGERA yang belum pernah dipakai agar tidak tabrakan dengan session lama
+        $sessionData = session('database_sembako_super_pure_array_v3', $defaultData);
+
+        // 3. JARING PENGAMAN NUKLIR: Ubah paksa apa pun isinya menjadi Array Asosiatif murni!
+        if (!is_array($sessionData)) {
+            $sessionData = $defaultData;
+        }
+
+        return json_decode(json_encode($sessionData), true);
     }
 
     public function createData(array $data): bool { 
@@ -33,7 +47,8 @@ class MockCrud implements \App\Contracts\DashboardCrudInterface {
         ];
 
         $currentData[] = $newItems;
-        session(['final_sembako_pure_array_db' => $currentData]);
+        // Simpan ke key baru yang steril
+        session(['database_sembako_super_pure_array_v3' => $currentData]);
         return true; 
     }
 
@@ -56,6 +71,10 @@ class MockSearch implements \App\Contracts\SearchableInterface {
         }));
     }
 }
+
+// =========================================================================
+// REGISTER KE CONTAINER
+// =========================================================================
 
 class AppServiceProvider extends ServiceProvider
 {
