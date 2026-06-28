@@ -17,8 +17,35 @@ class MockAuth implements \App\Contracts\AuthInterface {
 }
 
 class MockCrud implements \App\Contracts\DashboardCrudInterface {
-    public function getAllData(): array { return []; }
-    public function createData(array $data): bool { return true; }
+    
+    public function getAllData(): array { 
+        // Mengambil data barang dari session Laravel, jika masih kosong return array bawaan ini
+        return session('fake_sembako_db', [
+            ['id' => 1, 'nama_barang' => 'Beras Premium 5kg', 'stok' => 45, 'status' => 'Tersedia'],
+            ['id' => 2, 'nama_barang' => 'Minyak Goreng 2L', 'stok' => 3, 'status' => 'Stok Menipis'],
+        ]); 
+    }
+
+    public function createData(array $data): bool { 
+        // Ambil data lama
+        $currentData = $this->getAllData();
+        
+        // Buat format barang baru dari input form kamu
+        $newId = count($currentData) > 0 ? max(array_column($currentData, 'id')) + 1 : 1;
+        $newItems = [
+            'id' => $newId,
+            'nama_barang' => $data['nama_barang'] ?? ($data['nama'] ?? 'Barang Baru'),
+            'stok' => (int)($data['stok'] ?? 0),
+            'status' => ($data['stok'] ?? 0) <= 5 ? 'Stok Menipis' : 'Tersedia'
+        ];
+
+        // Gabungkan dan simpan kembali ke session
+        $currentData[] = $newItems;
+        session(['fake_sembako_db' => $currentData]);
+
+        return true; 
+    }
+
     public function updateData(int $id, array $data): bool { return true; }
     public function deleteData(int $id): bool { return true; }
     public function getDataById(int $id): ?array { return null; }
