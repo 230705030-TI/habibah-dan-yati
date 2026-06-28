@@ -17,25 +17,38 @@ class MockAuth implements \App\Contracts\AuthInterface {
 }
 
 class MockCrud implements \App\Contracts\DashboardCrudInterface {
+    
     public function getAllData(): array { 
-        return session('fake_sembako_db', [
+        // Mengambil data dari session, jika kosong buatkan default data dalam bentuk OBJECT (casting (object))
+        $data = session('fake_sembako_db', [
             ['id' => 1, 'nama_barang' => 'Beras Premium 5kg', 'stok' => 45, 'status' => 'Tersedia'],
             ['id' => 2, 'nama_barang' => 'Minyak Goreng 2L', 'stok' => 3, 'status' => 'Stok Menipis'],
         ]); 
+
+        // Trik Jitu: Paksa semua data array di dalam menjadi bentuk Object stdClass
+        return array_map(function($item) {
+            return (object) $item;
+        }, $data);
     }
 
     public function createData(array $data): bool { 
-        $currentData = $this->getAllData();
+        // Ambil data dalam bentuk mentah dari session terlebih dahulu
+        $currentData = session('fake_sembako_db', [
+            ['id' => 1, 'nama_barang' => 'Beras Premium 5kg', 'stok' => 45, 'status' => 'Tersedia'],
+            ['id' => 2, 'nama_barang' => 'Minyak Goreng 2L', 'stok' => 3, 'status' => 'Stok Menipis'],
+        ]);
+        
         $newId = count($currentData) > 0 ? max(array_column($currentData, 'id')) + 1 : 1;
         
-        $newItems = [
+        // Simpan input form baru ke array mentah
+        $currentData[] = [
             'id' => $newId,
             'nama_barang' => $data['nama_barang'] ?? ($data['nama'] ?? 'Barang Baru'),
             'stok' => (int)($data['stok'] ?? 0),
             'status' => ($data['stok'] ?? 0) <= 5 ? 'Stok Menipis' : 'Tersedia'
         ];
 
-        $currentData[] = $newItems;
+        // Masukkan kembali ke session
         session(['fake_sembako_db' => $currentData]);
         return true; 
     }
