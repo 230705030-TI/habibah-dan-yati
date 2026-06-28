@@ -7,7 +7,7 @@ use App\Contracts\SembakoServiceInterface;
 use App\Services\SembakoService;
 
 // =========================================================================
-// MOCK CLASS YANG MENGIKUTI ATURAN INTERFACE ASLI + SIMULASI SESSION DATA
+// MOCK CLASS DENGAN FORMAT STRUKTUR INTERFACE ASLI + MURNI ARRAY PHP
 // =========================================================================
 
 class MockAuth implements \App\Contracts\AuthInterface {
@@ -17,38 +17,26 @@ class MockAuth implements \App\Contracts\AuthInterface {
 }
 
 class MockCrud implements \App\Contracts\DashboardCrudInterface {
-    
     public function getAllData(): array { 
-        // Mengambil data dari session, jika kosong buatkan default data dalam bentuk OBJECT (casting (object))
-        $data = session('fake_sembako_db', [
+        // Mengembalikan murni array PHP agar cocok dengan sintaks $item['id'] di blade
+        return session('fake_sembako_db', [
             ['id' => 1, 'nama_barang' => 'Beras Premium 5kg', 'stok' => 45, 'status' => 'Tersedia'],
             ['id' => 2, 'nama_barang' => 'Minyak Goreng 2L', 'stok' => 3, 'status' => 'Stok Menipis'],
         ]); 
-
-        // Trik Jitu: Paksa semua data array di dalam menjadi bentuk Object stdClass
-        return array_map(function($item) {
-            return (object) $item;
-        }, $data);
     }
 
     public function createData(array $data): bool { 
-        // Ambil data dalam bentuk mentah dari session terlebih dahulu
-        $currentData = session('fake_sembako_db', [
-            ['id' => 1, 'nama_barang' => 'Beras Premium 5kg', 'stok' => 45, 'status' => 'Tersedia'],
-            ['id' => 2, 'nama_barang' => 'Minyak Goreng 2L', 'stok' => 3, 'status' => 'Stok Menipis'],
-        ]);
-        
+        $currentData = $this->getAllData();
         $newId = count($currentData) > 0 ? max(array_column($currentData, 'id')) + 1 : 1;
         
-        // Simpan input form baru ke array mentah
-        $currentData[] = [
+        $newItems = [
             'id' => $newId,
             'nama_barang' => $data['nama_barang'] ?? ($data['nama'] ?? 'Barang Baru'),
             'stok' => (int)($data['stok'] ?? 0),
             'status' => ($data['stok'] ?? 0) <= 5 ? 'Stok Menipis' : 'Tersedia'
         ];
 
-        // Masukkan kembali ke session
+        $currentData[] = $newItems;
         session(['fake_sembako_db' => $currentData]);
         return true; 
     }
@@ -67,7 +55,7 @@ class MockSearch implements \App\Contracts\SearchableInterface {
 }
 
 // =========================================================================
-// REGISTER BINDING KE SERVICE CONTAINER
+// SERVICE PROVIDER REGISTRATION
 // =========================================================================
 
 class AppServiceProvider extends ServiceProvider
@@ -77,10 +65,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Binding bawaan yang asli
         $this->app->bind(SembakoServiceInterface::class, SembakoService::class);
 
-        // Pasang kembali binding resmi ke constructor agar tidak memicu error "must not be accessed before initialization"
         $this->app->bind(\App\Contracts\AuthInterface::class, MockAuth::class);
         $this->app->bind(\App\Contracts\DashboardCrudInterface::class, MockCrud::class);
         $this->app->bind(\App\Contracts\WeatherApiInterface::class, MockWeather::class);
