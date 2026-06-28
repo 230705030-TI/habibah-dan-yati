@@ -1,10 +1,13 @@
 # 00. Deskripsi Tugas
 
 ### Nama Aplikasi / Proyek
-[Tulis Nama Aplikasi Anda di Sini, misal: Sistem Informasi Perpustakaan Online]
+
+Sistem Informasi Sembako & Pelacakan Inventaris
 
 ### Penjelasan Singkat
-Aplikasi ini adalah sebuah platform berbasis web yang dibuat menggunakan Laravel dan Vite. Fungsi utama dari aplikasi ini adalah untuk membantu [sebutkan target pengguna, misal: mahasiswa dan admin perpustakaan] dalam mengelola [sebutkan fungsinya, misal: peminjaman dan pengembalian buku secara digital].
+
+Aplikasi ini adalah sebuah platform berbasis web yang dibuat menggunakan Laravel dan Vite dengan arsitektur monolitik. Fungsi utama dari aplikasi ini adalah untuk membantu pemilik toko grosir atau staf gudang sembako dalam mengelola, mencatat, serta melacak keluar-masuknya stok barang sembako secara digital dan real-time.
 
 ### Latar Belakang
-[Tulis 1-2 kalimat kenapa kelompok Anda membuat aplikasi ini, misal: Untuk mendigitalisasi proses pencatatan manual yang sering memicu hilangnya data buku].
+
+Kelompok kami membuat aplikasi ini untuk mendigitalisasi proses pencatatan stok sembako konvensional yang sering kali masih menggunakan buku manual. Pencatatan manual rawan terhadap kesalahan perhitungan, hilangnya data log barang, serta ketidakakuratan informasi sisa stok saat transaksi berlangsung.
