@@ -7,7 +7,7 @@ use App\Contracts\AuthInterface;
 use App\Contracts\DashboardCrudInterface;
 use App\Contracts\WeatherApiInterface;
 use App\Contracts\SearchableInterface;
-
+use App\Http\Controllers\Controller;
 class DashboardController extends Controller
 {
     // Kita deklarasikan properti untuk menyimpan contract/interface
