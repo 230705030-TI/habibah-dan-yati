@@ -1,3 +1,17 @@
+@foreach (($items ?? []) as $item)
+    @php $item = (object) $item; @endphp ```
+
+Baris `@php $item = (object) $item; @endphp` ini mengubah paksa `$item` yang tadinya sudah berupa array murni menjadi **Object (`stdClass`)**. Nah, tepat setelah baris itu diubah jadi object, di bawahnya kamu memanggil `$item['id']` atau fungsi array lainnya, sehingga PHP langsung meledak memunculkan eror tersebut!
+
+Sekalian kita rapikan beberapa **syntax typo** bawaan HTML-mu (seperti tag pembuka double `<<form` pada modal tambah barang).
+
+---
+
+### 🛠️ Solusi Instan: Ganti dengan Kode Blade Bersih & Anti-Eror Ini
+
+Buka file **`resources/views/dashboard.blade.php`** kamu (baik di VS Code yang benar atau edit langsung lewat web GitHub), hapus semua isinya, lalu timpa total dengan kode bersih di bawah ini:
+
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -23,7 +37,7 @@
         <a onclick="bukaHalaman('stok')">📦 Stok Barang</a>
         <a onclick="bukaHalaman('laporan')">📊 Laporan Penjualan</a>
         <hr style="border-color: #374151;">
-      <a href="/" style="display: block; color: #dc2626; padding: 12px; text-decoration: none; border-radius: 6px; margin-top: 10px;">🚪 Keluar</a>
+        <a href="/" style="display: block; color: #dc2626; padding: 12px; text-decoration: none; border-radius: 6px; margin-top: 10px;">🚪 Keluar</a>
     </div>
 
     <div class="main-content">
@@ -43,9 +57,9 @@
                                 <p class="mb-0 text-white-50">Data diperbarui secara real-time dari OpenWeatherMap</p>
                             </div>
                             <div class="text-end">
-                                <h3 class="mb-0"><strong>{{ $weatherData['name'] ?? 'Banda Aceh' }}</strong></h3>
-                                <h4 class="mb-0 mt-1">{{ $weatherData['main']['temp'] ?? '28' }}°C</h4>
-                                <span class="badge bg-white text-info mt-1">{{ $weatherData['weather'][0]['description'] ?? 'Cerah Berawan' }}</span>
+                                <h3 class="mb-0"><strong>{{ data_get($weatherData, 'name', 'Banda Aceh') }}</strong></h3>
+                                <h4 class="mb-0 mt-1">{{ data_get($weatherData, 'main.temp', '28') }}°C</h4>
+                                <span class="badge bg-white text-info mt-1">{{ data_get($weatherData, 'weather.0.description', 'Cerah Berawan') }}</span>
                             </div>
                         </div>
                     </div>
@@ -100,20 +114,19 @@
                                 </thead>
                                 <tbody>
                                     @forelse(($items ?? []) as $item)
-                                     @php $item = (object) $item; @endphp
                                     <tr>
-                                        <td class="px-4">{{ $item->id }}</td>
-                                        <td><strong>{{ $item->nama_barang }}</strong></td>
-                                        <td>{{ $item->stok }} unit</td>
+                                        <td class="px-4">{{ data_get($item, 'id') }}</td>
+                                        <td><strong>{{ data_get($item, 'nama_barang') }}</strong></td>
+                                        <td>{{ data_get($item, 'stok') }} unit</td>
                                         <td>
-                                            @if($item->stok > 10)
+                                            @if((int)data_get($item, 'stok') > 10)
                                                 <span class="badge bg-success-subtle text-success">Aman</span>
                                             @else
                                                 <span class="badge bg-danger-subtle text-danger">Kritis</span>
                                             @endif
                                         </td>
                                         <td class="text-center">
-                                            <form action="/dashboard/destroy/{{ $item['id'] ?? $item->id ?? '' }}" method="POST"></form>
+                                            <form action="/dashboard/destroy/{{ data_get($item, 'id') }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
@@ -152,7 +165,7 @@
 
     <div class="modal fade" id="modalTambah" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <<form action="/dashboard/store" method="POST" class="modal-content">
+            <form action="/dashboard/store" method="POST" class="modal-content">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title">Tambah Barang Sembako</h5>
@@ -185,12 +198,10 @@
             const laporan = document.getElementById('halaman-laporan');
             const judulUtama = document.getElementById('judul-utama');
 
-            // Sembunyikan semuanya dahulu
             dashboard.style.display = 'none';
             stok.style.display = 'none';
             laporan.style.display = 'none';
 
-            // Tampilkan halaman yang di-klik user
             if (namaHalaman === 'dashboard') {
                 dashboard.style.display = 'block';
                 judulUtama.innerText = 'Selamat Datang di Dashboard';
