@@ -18,8 +18,8 @@ class MockAuth implements \App\Contracts\AuthInterface {
 
 class MockCrud implements \App\Contracts\DashboardCrudInterface {
     public function getAllData(): array { 
-        // Mengembalikan murni array multidimensi standar PHP
-        return session('fake_sembako_db', [
+        // Mengubah nama key session agar data stdClass yang tersangkut otomatis hangus terbuang!
+        return session('real_sembako_array_db', [
             [
                 'id' => 1, 
                 'nama_barang' => 'Beras Premium 5kg', 
@@ -47,7 +47,7 @@ class MockCrud implements \App\Contracts\DashboardCrudInterface {
         ];
 
         $currentData[] = $newItems;
-        session(['fake_sembako_db' => $currentData]);
+        session(['real_sembako_array_db' => $currentData]);
         return true; 
     }
 
@@ -55,7 +55,6 @@ class MockCrud implements \App\Contracts\DashboardCrudInterface {
     public function deleteData(int $id): bool { return true; }
     public function getDataById(int $id): ?array { return null; }
 }
-
 class MockWeather implements \App\Contracts\WeatherApiInterface {
     public function getWeatherByCity(string $cityName): array { return []; }
 }
